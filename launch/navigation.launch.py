@@ -22,7 +22,7 @@ def generate_launch_description():
     )
 
     map_file = PathJoinSubstitution(
-        [FindPackageShare("fbot_navigation"), "maps", "first_map.yaml"]
+        [FindPackageShare("fbot_navigation"), "maps", "small_house.yaml"]
     )
 
     nav2_bringup_launch = IncludeLaunchDescription(
@@ -31,22 +31,23 @@ def generate_launch_description():
             'use_sim_time': 'false',
             'autostart': 'true',
             'map': map_file,
+            'params_file': param_file,
+            'slam': 'True',
+        }.items()
+    )
+
+    nav2_navigation_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('nav2_bringup'), 'launch', 'navigation_launch.py')),
+        launch_arguments={
+            'use_sim_time': 'false',
+            'autostart': 'true',
+            'map': map_file,
             'params_file': param_file
         }.items()
     )
 
-    # nav2_navigation_launch = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('nav2_bringup'), 'launch', 'navigation_launch.py')),
-    #     launch_arguments={
-    #         'use_sim_time': 'false',
-    #         'autostart': 'true',
-    #         'map': map_file,
-    #         'params_file': param_file
-    #     }.items()
-    # )
-
     return LaunchDescription([
-        robot_launch,
+        # robot_launch,
         nav2_bringup_launch,
         # nav2_navigation_launch,
        
