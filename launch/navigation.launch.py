@@ -28,11 +28,11 @@ def generate_launch_description():
     nav2_bringup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('nav2_bringup'), 'launch', 'bringup_launch.py')),
         launch_arguments={
-            'use_sim_time': 'false',
-            'autostart': 'true',
-            'map': map_file,
-            'params_file': param_file,
-            'slam': 'True',
+            # 'use_sim_time': 'false',
+            'autostart': 'True',
+            'map': os.path.join(get_package_share_directory('fbot_navigation'), 'maps', 'small_house.yaml'),
+            # 'params_file': param_file,
+            # 'slam': 'False',
         }.items()
     )
 
